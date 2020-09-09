@@ -1,0 +1,31 @@
+.wc-kevin-bank {
+    padding: 0.5rem;
+    background-color: #ffffff;
+}
+
+.wc-kevin-bank ~ .wc-kevin-bank {
+    margin-top: 1rem;
+}
+
+.wc-kevin-bank label {
+    display: block;
+    margin: 0;
+}
+
+.wc-kevin-bank input {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 0.5rem 0 0.5rem;
+}
+
+.wc-kevin-bank img {
+    display: inline-block;
+    vertical-align: middle;
+    height: 48px;
+    width: auto;
+    margin: 0 0.5rem 0 0.5rem;
+}
+
+.wc-kevin-banks-list ~ .wc-kevin-banks-description {
+    margin-top: 1rem;
+}
