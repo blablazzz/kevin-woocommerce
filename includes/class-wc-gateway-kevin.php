@@ -17,6 +17,9 @@ class WC_Gateway_Kevin extends WC_Payment_Gateway {
     protected $paymentStatusCompleted = 'completed';
     protected $paymentStatusFailed = 'failed';
 
+    protected $uiLocales = array( 'en', 'lt', 'lv', 'ee', 'fi', 'se', 'ru' );
+    protected $uiLocaleDefault = 'en';
+
     public function __construct() {
         $this->id                 = 'kevin';
         $this->icon               = '';
@@ -141,6 +144,8 @@ class WC_Gateway_Kevin extends WC_Payment_Gateway {
 
             wc_reduce_stock_levels( $order_id );
             WC()->cart->empty_cart();
+
+            $response['confirmLink'] = add_query_arg( array( 'lang' => $this->get_ui_locale() ), $response['confirmLink'] );
 
             return array(
                 'result'   => 'success',
@@ -272,5 +277,15 @@ class WC_Gateway_Kevin extends WC_Payment_Gateway {
                 }
             }
         }
+    }
+
+    private function get_ui_locale() {
+        $lang = explode( '_', get_locale() );
+        $lang = reset( $lang );
+        if ( ! in_array( $lang, $this->uiLocales ) ) {
+            return $this->uiLocaleDefault;
+        }
+
+        return $lang;
     }
 }
