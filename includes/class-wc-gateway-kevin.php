@@ -140,7 +140,7 @@ class WC_Gateway_Kevin extends WC_Payment_Gateway {
 
             // Payment: Started
             $order->update_status( 'pending' );
-            $order->add_order_note( __( 'kevin. payment started.', 'woocommerce-gateway-kevin' ) );
+            $order->add_order_note( sprintf( __( 'kevin. payment started (Payment ID: %s).', 'woocommerce-gateway-kevin' ), $response['id'] ) );
 
             wc_reduce_stock_levels( $order_id );
             WC()->cart->empty_cart();
@@ -167,14 +167,26 @@ class WC_Gateway_Kevin extends WC_Payment_Gateway {
             return;
         }
 
-        if ( empty( $_POST['id'] ) || empty( $_POST['status'] ) || empty( $_POST['statusGroup'] ) ) {
-            return;
+        $request_body  = file_get_contents( 'php://input' );
+        $request_array = json_decode( $request_body, true );
+
+        if ( is_array( $request_array ) ) {
+            if ( empty( $request_array['id'] ) || empty( $request_array['status'] ) || empty( $request_array['statusGroup'] ) ) {
+                return;
+            }
+            $request = $request_array;
+        } else {
+            if ( empty( $_POST['id'] ) || empty( $_POST['status'] ) || empty( $_POST['statusGroup'] ) ) {
+                return;
+            }
+
+            $request = $_POST;
         }
 
         $response = [
-            'id'          => $_POST['id'],
-            'status'      => $_POST['status'],
-            'statusGroup' => $_POST['statusGroup'],
+            'id'          => $request['id'],
+            'status'      => $request['status'],
+            'statusGroup' => $request['statusGroup'],
         ];
 
         $attr   = array(
@@ -200,8 +212,8 @@ class WC_Gateway_Kevin extends WC_Payment_Gateway {
             if ( ! in_array( $order->get_status(), array( 'completed', 'failed' ) ) ) {
                 if ( $response['statusGroup'] === $this->paymentStatusCompleted ) {
                     // Payment: Complete
-                    $order->payment_complete();
-                    $order->add_order_note( __( 'kevin. payment complete.', 'woocommerce-gateway-kevin' ) );
+                    $order->payment_complete( $response['id'] );
+                    $order->add_order_note( sprintf( __( 'kevin. payment complete (Payment ID: %s).', 'woocommerce-gateway-kevin' ), $response['id'] ) );
 
                     $order->update_meta_data( '_kevin_status', $response['status'] );
                     $order->update_meta_data( '_kevin_status_group', $response['statusGroup'] );
