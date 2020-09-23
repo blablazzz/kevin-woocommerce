@@ -200,7 +200,8 @@ class WC_Gateway_Kevin extends WC_Payment_Gateway {
         $orders = wc_get_orders( $attr );
 
         if ( ! empty( $orders ) ) {
-            $order = $orders[0];
+            $order          = $orders[0];
+            $current_status = $order->get_meta( '_kevin_status_group' );
 
             // Ignore manually cancelled payments by user.
             if ( $response['statusGroup'] === $this->paymentStatusFailed && $response['status'] === 'CANC' ) {
@@ -208,42 +209,53 @@ class WC_Gateway_Kevin extends WC_Payment_Gateway {
                 exit();
             }
 
-            // Process order status.
-            if ( ! in_array( $order->get_status(), array( 'completed', 'failed' ) ) ) {
-                if ( $response['statusGroup'] === $this->paymentStatusCompleted ) {
-                    // Payment: Complete
-                    $order->payment_complete( $response['id'] );
-                    $order->add_order_note( sprintf( __( 'kevin. payment complete (Payment ID: %s).', 'woocommerce-gateway-kevin' ), $response['id'] ) );
+            // Process only pending payments.
+            if ( $current_status === $this->paymentStatusPending ) {
+                // Process order status.
+                if ( ! in_array( $order->get_status(), array( 'completed', 'failed' ) ) ) {
+                    if ( $response['statusGroup'] === $this->paymentStatusCompleted ) {
+                        // Payment: Complete
+                        $order->payment_complete( $response['id'] );
+                        $order->add_order_note( sprintf( __( 'kevin. payment complete (Payment ID: %s).', 'woocommerce-gateway-kevin' ), $response['id'] ) );
 
-                    $order->update_meta_data( '_kevin_status', $response['status'] );
-                    $order->update_meta_data( '_kevin_status_group', $response['statusGroup'] );
+                        $order->update_meta_data( '_kevin_status', $response['status'] );
+                        $order->update_meta_data( '_kevin_status_group', $response['statusGroup'] );
 
-                    status_header( 200 );
-                    exit();
-                }
+                        $order->save();
 
-                if ( $response['statusGroup'] === $this->paymentStatusFailed ) {
-                    // Payment: Failed
-                    $order->update_status( 'failed' );
-                    $order->add_order_note( __( 'kevin. payment failed.', 'woocommerce-gateway-kevin' ) );
+                        status_header( 200 );
+                        exit();
+                    }
 
-                    $order->update_meta_data( '_kevin_status', $response['status'] );
-                    $order->update_meta_data( '_kevin_status_group', $response['statusGroup'] );
+                    if ( $response['statusGroup'] === $this->paymentStatusFailed ) {
+                        // Payment: Failed
+                        $order->update_status( 'failed' );
+                        $order->add_order_note( __( 'kevin. payment failed.', 'woocommerce-gateway-kevin' ) );
 
-                    status_header( 200 );
-                    exit();
+                        $order->update_meta_data( '_kevin_status', $response['status'] );
+                        $order->update_meta_data( '_kevin_status_group', $response['statusGroup'] );
+
+                        $order->save();
+
+                        status_header( 200 );
+                        exit();
+                    }
                 }
             }
 
             // Ignore already completed or failed orders.
-            $current_status = $order->get_meta( '_kevin_status_group' );
             if ( in_array( $current_status, array( $this->paymentStatusCompleted, $this->paymentStatusFailed ) ) ) {
                 status_header( 200 );
                 exit();
             }
+
+            // Payment status did not match any cases.
+            status_header( 400 );
+            exit();
         }
 
-        status_header( 400 );
+        // Payment id was not found or cancelled by user (replaced by new payment id).
+        status_header( 200 );
         exit();
     }
 
@@ -271,6 +283,8 @@ class WC_Gateway_Kevin extends WC_Payment_Gateway {
                             $order->update_meta_data( '_kevin_status', $response['status'] );
                             $order->update_meta_data( '_kevin_status_group', $response['statusGroup'] );
 
+                            $order->save();
+
                             wp_safe_redirect( $order->get_cancel_order_url() );
                             exit();
                         }
@@ -281,8 +295,11 @@ class WC_Gateway_Kevin extends WC_Payment_Gateway {
                         $order->update_status( 'on-hold' );
                         $order->add_order_note( __( 'kevin. payment processing.', 'woocommerce-gateway-kevin' ) );
 
+                        // Set payment status group to 'pending' and let webhook handle the rest.
                         $order->update_meta_data( '_kevin_status', $response['status'] );
-                        $order->update_meta_data( '_kevin_status_group', $response['group'] );
+                        $order->update_meta_data( '_kevin_status_group', $this->paymentStatusPending ); // $response['group']
+
+                        $order->save();
                     }
                 } catch ( \Kevin\KevinException $e ) {
                     $order->add_order_note( $e->getMessage() );
