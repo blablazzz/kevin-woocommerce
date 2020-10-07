@@ -2,7 +2,7 @@
     "name": "getkevin/kevin-woocommerce",
     "description": "WooCommerce gateway plugin for kevin. client.",
     "type": "wordpress-plugin",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "license": "MIT",
     "authors": [
         {

@@ -211,7 +211,7 @@ class WC_Gateway_Kevin extends WC_Payment_Gateway {
 
             if ( $current_status === $this->paymentStatusStarted ) {
                 // Waiting time.
-                $minutes = 15;
+                $minutes = 10;
                 if ( ( time() - $order->get_date_created()->getTimestamp() ) > ( $minutes * 60 ) ) {
                     // Process order status.
                     if ( ! in_array( $order->get_status(), array( 'completed', 'failed' ) ) ) {
