@@ -210,27 +210,20 @@ class WC_Gateway_Kevin extends WC_Payment_Gateway {
             }
 
             if ( $current_status === $this->paymentStatusStarted ) {
-                // Waiting time.
-                $minutes = 10;
-                if ( ( time() - $order->get_date_created()->getTimestamp() ) > ( $minutes * 60 ) ) {
-                    // Process order status.
-                    if ( ! in_array( $order->get_status(), array( 'completed', 'failed' ) ) ) {
-                        // Fill in missing statuses.
+                // Process order status.
+                if ( ! in_array( $order->get_status(), array( 'completed', 'failed' ) ) ) {
+                    // Payment: Processing
+                    $order->update_status( 'on-hold' );
+                    $order->add_order_note( __( 'kevin. payment processing.', 'woocommerce-gateway-kevin' ) );
 
-                        // Payment: Processing
-                        $order->update_status( 'on-hold' );
-                        $order->add_order_note( __( 'kevin. payment processing.', 'woocommerce-gateway-kevin' ) );
+                    // Set payment status group to 'pending' and let webhook handle the rest.
+                    $order->update_meta_data( '_kevin_status', $response['status'] );
+                    $order->update_meta_data( '_kevin_status_group', $this->paymentStatusPending ); // $response['group']
 
-                        // Set payment status group to 'pending' and let webhook handle the rest.
-                        $order->update_meta_data( '_kevin_status', $response['status'] );
-                        $order->update_meta_data( '_kevin_status_group', $this->paymentStatusPending ); // $response['group']
+                    $order->save();
 
-                        $order->save();
-
-                        // Reset order data
-                        $order          = wc_get_order( $order->get_id() );
-                        $current_status = $order->get_meta( '_kevin_status_group' );
-                    }
+                    // Set current payment status.
+                    $current_status = $this->paymentStatusPending;
                 }
             }
 
