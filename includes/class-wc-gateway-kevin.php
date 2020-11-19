@@ -136,11 +136,11 @@ class WC_Gateway_Kevin extends WC_Payment_Gateway {
             $order->update_meta_data( '_kevin_status', $response['status'] );
             $order->update_meta_data( '_kevin_status_group', $response['statusGroup'] );
 
-            $order->save();
-
             // Payment: Started
             $order->update_status( 'pending' );
             $order->add_order_note( sprintf( __( 'kevin. payment started (Payment ID: %s).', 'woocommerce-gateway-kevin' ), $response['id'] ) );
+
+            $order->save();
 
             wc_reduce_stock_levels( $order_id );
             WC()->cart->empty_cart();
@@ -166,6 +166,9 @@ class WC_Gateway_Kevin extends WC_Payment_Gateway {
         if ( ( 'POST' !== $_SERVER['REQUEST_METHOD'] ) ) {
             return;
         }
+
+        // Prevent thank you page and webhook interferences.
+        sleep(3);
 
         $request_body  = file_get_contents( 'php://input' );
         $request_array = json_decode( $request_body, true );
