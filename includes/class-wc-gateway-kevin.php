@@ -168,7 +168,7 @@ class WC_Gateway_Kevin extends WC_Payment_Gateway {
         }
 
         // Prevent thank you page and webhook interferences.
-        sleep(3);
+        sleep( 3 );
 
         $request_body  = file_get_contents( 'php://input' );
         $request_array = json_decode( $request_body, true );
@@ -192,14 +192,12 @@ class WC_Gateway_Kevin extends WC_Payment_Gateway {
             'statusGroup' => $request['statusGroup'],
         ];
 
-        $attr   = array(
-            'meta_query' => array(
-                array(
-                    'key'   => '_kevin_id',
-                    'value' => esc_attr( $response['id'] )
-                )
-            )
+        $attr = array(
+            'meta_key'     => '_kevin_id',
+            'meta_value'   => esc_attr( $response['id'] ),
+            'meta_compare' => '=',
         );
+
         $orders = wc_get_orders( $attr );
 
         if ( ! empty( $orders ) ) {
