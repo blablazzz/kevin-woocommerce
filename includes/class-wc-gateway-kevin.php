@@ -40,7 +40,10 @@ class WC_Gateway_Kevin extends WC_Payment_Gateway {
         $this->creditor_account   = $this->get_option( 'creditor_account' );
         $this->redirect_preferred = $this->get_option( 'redirect_preferred' ) === 'yes';
 
+        $options = [ 'version' => '0.2' ];
+
         WC_Kevin_Client::set_credentials( $this->client_id, $this->client_secret );
+        WC_Kevin_Client::set_options( $options );
 
         add_action( 'woocommerce_api_wc_gateway_kevin', array( $this, 'handle_webhook' ) );
         add_action( 'woocommerce_thankyou_kevin', array( $this, 'thankyou_page' ) );
@@ -132,7 +135,10 @@ class WC_Gateway_Kevin extends WC_Payment_Gateway {
             $response = WC_Kevin_Client::init_payment( $attr );
 
             $order->update_meta_data( '_kevin_id', $response['id'] );
-            $order->update_meta_data( '_kevin_ip_address', $order->get_customer_ip_address() );
+            $order->update_meta_data( '_kevin_ip_address', $this->get_customer_ip_address( $order ) );
+            $order->update_meta_data( '_kevin_ip_port', $this->get_customer_ip_port() );
+            $order->update_meta_data( '_kevin_user_agent', $this->get_customer_user_agent( $order ) );
+            $order->update_meta_data( '_kevin_device_id', $this->get_customer_device_id() );
             $order->update_meta_data( '_kevin_status', $response['status'] );
             $order->update_meta_data( '_kevin_status_group', $response['statusGroup'] );
 
@@ -285,7 +291,13 @@ class WC_Gateway_Kevin extends WC_Payment_Gateway {
         if ( $payment_id && $payment_id === $order->get_meta( '_kevin_id' ) ) {
             if ( $order->get_meta( '_kevin_status_group' ) === $this->paymentStatusStarted ) {
                 try {
-                    $response = WC_Kevin_Client::get_payment_status( $payment_id, array( 'PSU-IP-Address' => $order->get_meta( '_kevin_ip_address' ) ) );
+                    $attr     = array(
+                        'PSU-IP-Address' => $order->get_meta( '_kevin_ip_address' ),
+                        'PSU-IP-Port'    => $order->get_meta( '_kevin_ip_port' ),
+                        'PSU-User-Agent' => $order->get_meta( '_kevin_user_agent' ),
+                        'PSU-Device-ID'  => $order->get_meta( '_kevin_device_id' ),
+                    );
+                    $response = WC_Kevin_Client::get_payment_status( $payment_id, $attr );
 
                     if ( $response['group'] === $this->paymentStatusFailed ) {
                         if ( $response['status'] === 'CANC' ) {
@@ -335,5 +347,52 @@ class WC_Gateway_Kevin extends WC_Payment_Gateway {
         }
 
         return $lang;
+    }
+
+    /**
+     * @param WC_Order $order
+     *
+     * @return string
+     */
+    private function get_customer_ip_address( $order ) {
+        return $order->get_customer_ip_address();
+    }
+
+    /**
+     * @return string
+     */
+    private function get_customer_ip_port() {
+        if ( isset( $_SERVER['HTTP_X_REAL_PORT'] ) ) {
+            return sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_REAL_PORT'] ) );
+        } elseif ( isset( $_SERVER['HTTP_X_FORWARDED_PORT'] ) ) {
+            return sanitize_text_field( wp_unslash( $_SERVER['HTTP_X_FORWARDED_PORT'] ) );
+        } elseif ( isset( $_SERVER['REMOTE_PORT'] ) ) {
+            return sanitize_text_field( wp_unslash( $_SERVER['REMOTE_PORT'] ) );
+        }
+
+        return '';
+    }
+
+    /**
+     * @param WC_Order $order
+     *
+     * @return string
+     */
+    private function get_customer_user_agent( $order ) {
+        return $order->get_customer_user_agent();
+    }
+
+    private function get_customer_device_id() {
+        return $this->uuid();
+    }
+
+    private function uuid() {
+        return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ),
+            mt_rand( 0, 0xffff ),
+            mt_rand( 0, 0x0fff ) | 0x4000,
+            mt_rand( 0, 0x3fff ) | 0x8000,
+            mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff ), mt_rand( 0, 0xffff )
+        );
     }
 }

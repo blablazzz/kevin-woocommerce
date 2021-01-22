@@ -6,6 +6,7 @@ class WC_Kevin_Client {
 
     private static $client_id;
     private static $client_secret;
+    private static $options;
 
     /**
      * @param $client_id
@@ -14,6 +15,13 @@ class WC_Kevin_Client {
     public static function set_credentials( $client_id, $client_secret ) {
         self::$client_id     = $client_id;
         self::$client_secret = $client_secret;
+    }
+
+    /**
+     * @param $options
+     */
+    public static function set_options( $options ) {
+        self::$options = $options;
     }
 
     /**
@@ -63,6 +71,6 @@ class WC_Kevin_Client {
      */
     private static function get_client() {
 
-        return new \Kevin\Client( self::$client_id, self::$client_secret );
+        return new \Kevin\Client( self::$client_id, self::$client_secret, self::$options );
     }
 }
