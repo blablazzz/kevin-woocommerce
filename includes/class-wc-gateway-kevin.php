@@ -148,7 +148,6 @@ class WC_Gateway_Kevin extends WC_Payment_Gateway {
 
             $order->save();
 
-            wc_reduce_stock_levels( $order_id );
             WC()->cart->empty_cart();
 
             $response['confirmLink'] = add_query_arg( array( 'lang' => $this->get_ui_locale() ), $response['confirmLink'] );
@@ -301,6 +300,8 @@ class WC_Gateway_Kevin extends WC_Payment_Gateway {
 
                     if ( $response['group'] === $this->paymentStatusFailed ) {
                         if ( $response['status'] === 'CANC' ) {
+                            // Payment: Pending
+                            $order->update_status( 'pending' );
                             // Order cancelled by user
                             $order->add_order_note( __( 'kevin. payment cancelled by user.', 'woocommerce-gateway-kevin' ) );
 
