@@ -1,6 +1,6 @@
 .wc-kevin-bank {
     padding: 0.5rem;
-    background-color: #ffffff;
+    border-bottom: 1px solid #e2e2e2;
 }
 
 .wc-kevin-bank ~ .wc-kevin-bank {
@@ -28,4 +28,12 @@
 
 .wc-kevin-banks-list ~ .wc-kevin-banks-description {
     margin-top: 1rem;
+}
+
+.card-text-block{
+    display:inline-block;
+}
+
+.wc_payment_method.payment_method_getkevin label img {
+    max-height: 24px;
 }
