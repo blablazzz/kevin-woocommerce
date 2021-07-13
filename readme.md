@@ -11,7 +11,7 @@ Wordpress/Woocommerce module implementing kevin. platform.
 
 ## Support
 
-Email: support@getkevin.eu
+Email: help@kevin.eu
 
 ## License
 
