@@ -327,7 +327,7 @@ class WC_Gateway_GetKevin extends WC_Payment_Gateway
                     exit();
                 }
 
-                $this->resolveGetKevinStatusGroup($order, $inputData['statusGroup'], $inputData['status']);
+                $this->resolveGetKevinStatusGroup($order, $inputData['statusGroup']);
                 $order->update_meta_data('_kevin_status', $inputData['status']);
                 $order->update_meta_data('_kevin_status_group', $inputData['statusGroup']);
 
@@ -386,7 +386,7 @@ class WC_Gateway_GetKevin extends WC_Payment_Gateway
      * @param $order
      * @param $statusGroup
      */
-    protected function resolveGetKevinStatusGroup($order, $statusGroup, $status = "")
+    protected function resolveGetKevinStatusGroup($order, $statusGroup)
     {
         if ($statusGroup)
         {
@@ -401,15 +401,8 @@ class WC_Gateway_GetKevin extends WC_Payment_Gateway
                 case "completed":
                     $this->updateOrderStatus($order, $this->paymentStatusCompleted, $statusGroup);
                     break;
-                case "failed";
-                    switch ($status)
-                    {
-                        case "CANC":
-                            $this->updateOrderStatus($order, $this->paymentStatusPending);
-                            break;
-                        default:
-                            $this->updateOrderStatus($order, $this->paymentStatusFailed);
-                    }
+                case "failed":
+                    $this->updateOrderStatus($order, $this->paymentStatusFailed);
                     break;
             }
         }
