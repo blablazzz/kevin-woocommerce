@@ -1,0 +1,64 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "d64cbf1e060449b94626c63ef2e34306",
+    "packages": [
+        {
+            "name": "getkevin/kevin-php",
+            "version": "0.14.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/getkevin/kevin-php.git",
+                "reference": "60377d25ea1ccc80ae31859f0ab10b9a4f04f2f9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/getkevin/kevin-php/zipball/60377d25ea1ccc80ae31859f0ab10b9a4f04f2f9",
+                "reference": "60377d25ea1ccc80ae31859f0ab10b9a4f04f2f9",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Kevin\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "kevin.",
+                    "email": "help@kevin.eu"
+                }
+            ],
+            "description": "PHP client for kevin. platform.",
+            "support": {
+                "email": "help@kevin.eu",
+                "issues": "https://github.com/getkevin/kevin-php/issues",
+                "source": "https://github.com/getkevin/kevin-php/tree/0.14.1"
+            },
+            "time": "2021-04-28T10:21:56+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=5.6",
+        "ext-json": "*"
+    },
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
+}

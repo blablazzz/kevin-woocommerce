@@ -1,0 +1,249 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2021 KEVIN EU UAB
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <HELP@KEVIN.EU>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-06-02 00:13+0300\n"
+"PO-Revision-Date: 2021-06-23 12:07+0300\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && (n%100<11 || n%100>19) ? 0 : n"
+"%10>=2 && n%10<=9 && (n%100<11 || n%100>19) ? 1 : 2);\n"
+"X-Generator: Poedit 3.0\n"
+"Last-Translator: \n"
+"Language: lt_LT\n"
+
+#: class-wc-getkevin-gateway.php:41
+msgid ""
+"kevin. is a payment infrastructure company which offers payment initiation "
+"service in EU&EEA."
+msgstr ""
+"kevin. yra mokėjimų infrastruktūros kompanija, kuri siūlo mokėjimo "
+"inicijavimo paslaugą ES ir EEA šalyse."
+
+#: class-wc-getkevin-gateway.php:102
+msgid "Main Settings"
+msgstr "Pagrindiniai Nustatymai"
+
+#: class-wc-getkevin-gateway.php:106
+msgid "Order statuses"
+msgstr "Užsakymų būsenos"
+
+#: class-wc-getkevin-gateway.php:124
+msgid ""
+"Client ID must be made from letters, digits and special character (-). (Ex: "
+"111111bb-ccc2-45df-9afC-e111dd000000)."
+msgstr ""
+"Client ID susidaro iš raidžių, skaičių ir specialiųjų simbolių (-). (Pvz.: "
+"111111bb-ccc2-45df-9afC-e111dd000000)."
+
+#: class-wc-getkevin-gateway.php:134
+msgid "Client secret must be a string from letters and digits."
+msgstr "Client Secret susidaro iš raidžių ir skaičių."
+
+#: class-wc-getkevin-gateway.php:144
+msgid "Creditor name must be a string without any special characters."
+msgstr ""
+"Gavėjo vardas turi būti nurodytas lotyniškomis raidėmis be specialiųjų "
+"simbolių."
+
+#: class-wc-getkevin-gateway.php:154
+msgid "Creditor account field must valid IBAN (Ex: LT01234567891011121314)."
+msgstr ""
+"Gavėjo banko sąskaita turi būti galiojantis IBAN (Pvz.: "
+"LT01234567891011121314)"
+
+#: class-wc-getkevin-gateway.php:248
+msgid "Please select your bank."
+msgstr "Pasirinkite savo banką."
+
+#: class-wc-getkevin-gateway.php:261
+msgid "kevin. payment started."
+msgstr "kevin. mokėjimas pradėtas"
+
+#: class-wc-getkevin-gateway.php:342
+#, php-format
+msgid "kevin. Refund status is now: %s"
+msgstr "kevin. grąžinimo būsena dabar yra: %s"
+
+#: class-wc-getkevin-gateway.php:349
+msgid "kevin. Refund status changed to "
+msgstr "kevin. grąžinimo būsena pasikeitė į"
+
+#: class-wc-getkevin-gateway.php:376
+#, php-format
+msgid "kevin. Duplicate webhook: Payment status is %s"
+msgstr ""
+
+#: class-wc-getkevin-gateway.php:398
+msgid "kevin. Customer came back to thank you page"
+msgstr "kevin. klientas sugrąžintas į \"Ačiū\" puslapį"
+
+#: class-wc-getkevin-gateway.php:451
+#, php-format
+msgid "kevin. Payment status is %s"
+msgstr "kevin. mokėjimo būsena yra %s"
+
+#: class-wc-getkevin-gateway.php:455
+msgid "kevin. Payment status changed to "
+msgstr "kevin. mokėjimo būsena pasikeitė į "
+
+#: class-wc-getkevin-gateway.php:476
+#, php-format
+msgid "kevin. Payment id is %s"
+msgstr "kevin. Payment ID yra %s"
+
+#: class-wc-getkevin-gateway.php:530 class-wc-getkevin-gateway.php:559
+msgid "Refund failed."
+msgstr "Grąžinimas nepavyko."
+
+#: class-wc-getkevin-gateway.php:535
+#, php-format
+msgid "Starting refund process. Amount %1$s, Payment ID: %2$s, Reason: %3$s"
+msgstr ""
+"Pradedamas grąžinimo procesas. Suma %1$s, Mokėjimo ID: %2$s, Priežastis: "
+"%3$s"
+
+#: class-wc-getkevin-gateway.php:549 class-wc-getkevin-gateway.php:550
+#, php-format
+msgid "kevin. Refund failed: %1$s"
+msgstr "kevin. grąžinimas nepavyko: %1$s"
+
+#: class-wc-getkevin-gateway.php:555
+#, php-format
+msgid "Refund process started. Amount %1$s"
+msgstr "Grąžinimo procesas prasidėjo. Suma %1$s"
+
+#: class-wc-getkevin-gateway.php:576
+msgid ""
+"Unfortunately, your order cannot be processed as the originating bank has "
+"declined your transaction. Please attempt your purchase again."
+msgstr ""
+"Deja, bet jūsų užsakymas negali būti įvykdytas, nes bankas atmetė jūsų "
+"mokėjimą. Pabandykite sumokėti dar kartą."
+
+#: class-wc-getkevin-gateway.php:577
+msgid "Pay"
+msgstr "Mokėti"
+
+#: class-wc-getkevin-gateway.php:582
+msgid "My account"
+msgstr "Mano paskyra"
+
+#: class-wc-getkevin-gateway.php:588
+msgid ""
+"Thank you for your payment. Your transaction has been completed, and a "
+"receipt for your purchase has been emailed to you."
+msgstr ""
+"Ačiū už jūsų mokėjimą. Jūsų mokėjimas buvo sėkmingai įvykdytas, o mokėjimo "
+"informacija išsiųsta jūsų el. pašto adresu."
+
+#: class-wc-getkevin-gateway.php:592
+msgid "Payment initiation was cancelled. Please try again."
+msgstr "Mokėjimo inicijavimas buvo atšauktas. Pabandykite dar kartą."
+
+#: class-wc-getkevin-gateway.php:596
+msgid "We will start executing the order only after receiving the payment."
+msgstr "Pradėsime vykdyti užsakymą, kai gausime mokėjimą."
+
+#: class-wc-getkevin-load.php:59
+msgid "kevin. - WooCommerce Payment Gateway"
+msgstr ""
+
+#: class-wc-getkevin-load.php:83
+msgid "Settings"
+msgstr "Nustatymai"
+
+#: class-wc-getkevin-settings.php:22
+msgid "Enable/Disable"
+msgstr "Įjungti/Išjungti"
+
+#: class-wc-getkevin-settings.php:25
+msgid "Enable Getkevin."
+msgstr "Įjungti kevin. modulį"
+
+#: class-wc-getkevin-settings.php:29
+msgid "Title"
+msgstr "Pavadinimas"
+
+#: class-wc-getkevin-settings.php:32
+msgid "This controls the title which the user sees during checkout."
+msgstr ""
+
+#: class-wc-getkevin-settings.php:33
+msgid "kevin."
+msgstr "kevin."
+
+#: class-wc-getkevin-settings.php:39
+msgid "Description"
+msgstr "Aprašymas"
+
+#: class-wc-getkevin-settings.php:42
+msgid "This controls the description which the user sees during checkout."
+msgstr ""
+
+#: class-wc-getkevin-settings.php:44
+msgid "Choose a payment method via kevin."
+msgstr "Pasirinkite mokėjimo būdą per kevin."
+
+#: class-wc-getkevin-settings.php:47
+msgid "Client ID"
+msgstr ""
+
+#: class-wc-getkevin-settings.php:50
+msgid "Your client id. Your can get it in kevin. platform console."
+msgstr "Jūsų Client ID. Galite gauti kevin. platformos konsolėje."
+
+#: class-wc-getkevin-settings.php:56
+msgid "Client Secret"
+msgstr ""
+
+#: class-wc-getkevin-settings.php:59
+msgid "Your client secret. Your can get it in kevin. platform console."
+msgstr "Jūsų Client Secret. Galite gauti kevin. platformos konsolėje."
+
+#: class-wc-getkevin-settings.php:65
+msgid "Company Name"
+msgstr "Įmonės pavadinimas"
+
+#: class-wc-getkevin-settings.php:73
+msgid "Company Bank Account"
+msgstr "Įmonės banko sąskaita"
+
+#: class-wc-getkevin-settings.php:81
+msgid "Redirect Preferred"
+msgstr ""
+
+#: class-wc-getkevin-settings.php:84
+msgid "Redirect user directly to bank."
+msgstr "Nukreipti mokėtoją į banko aplinką."
+
+#: class-wc-getkevin-settings.php:88
+msgid "New order status"
+msgstr "Naujo užsakymo būsena"
+
+#: class-wc-getkevin-settings.php:92
+msgid "Status of a new order that has been created"
+msgstr "Naujo užsakymo, kuris buvo atšauktas, būsena"
+
+#: class-wc-getkevin-settings.php:96
+msgid "Paid order status"
+msgstr "Apmokėto užsakymo būsena"
+
+#: class-wc-getkevin-settings.php:100
+msgid "Status of an order that has been successfully paid."
+msgstr ""
+
+#: class-wc-getkevin-settings.php:104
+msgid "Pending checkout"
+msgstr ""
+
+#: class-wc-getkevin-settings.php:108
+msgid "Status of an order that has not been paid yet."
+msgstr "Neapmokėto užsakymo būsena"
