@@ -58,7 +58,7 @@ class WC_Gateway_GetKevin extends WC_Payment_Gateway
 
         $this->clientOptions = [
             'version' => '0.3',
-            'pluginVersion' => "2.1.3",
+            'pluginVersion' => "2.1.4",
             'pluginPlatform' => "Wordpress/WooCommerce",
             'pluginPlatformVersion' => $GLOBALS['wp_version'] . "/" . WC_VERSION,
         ];
@@ -161,58 +161,56 @@ class WC_Gateway_GetKevin extends WC_Payment_Gateway
         $description = $this->get_description();
         $country_code = WC()->customer->get_billing_country();
         $client = new WC_Kevin_Client($this->client_id, $this->client_secret, $this->clientOptions);
+        if ($country_code) {
+            $paymentMethods = $client->getPaymentMethods();
 
-        $paymentMethods = $client->getPaymentMethods();
+            $banks = $client->getBanks($country_code);
 
-        $banks = $client->getBanks($country_code);
+            ob_start();
 
-        ob_start();
+            if ($banks) {
+                echo '<div class="wc-kevin-banks-list">';
 
-        if ($banks)
-        {
-            echo '<div class="wc-kevin-banks-list">';
+                if (in_array("bank", $paymentMethods)) {
+                    foreach ($banks as $bank) {
+                        $html = '<div class="wc-kevin-bank">';
+                        $html .= '<p>';
+                        $html .= '<label>';
+                        $html .= '<input type="radio" name="payment[bank_id]" value="' . esc_attr($bank['id']) . '" title="' . esc_attr($bank['name']) . '">';
+                        $html .= '<img src="' . $bank['imageUri'] . '" height="48" alt="' . esc_attr($bank['name']) . '">';
+                        $html .= esc_html($bank['name']);
+                        $html .= '</label>';
+                        $html .= '</p>';
+                        $html .= '</div>';
+                        echo $html;
+                    }
+                }
+                if (in_array("card", $paymentMethods)) {
 
-            if (in_array("bank", $paymentMethods))
-            {
-                foreach ($banks as $bank)
-                {
                     $html = '<div class="wc-kevin-bank">';
                     $html .= '<p>';
                     $html .= '<label>';
-                    $html .= '<input type="radio" name="payment[bank_id]" value="' . esc_attr($bank['id']) . '" title="' . esc_attr($bank['name']) . '">';
-                    $html .= '<img src="' . $bank['imageUri'] . '" height="48" alt="' . esc_attr($bank['name']) . '">';
-                    $html .= esc_html($bank['name']);
+                    $html .= '<input type="radio" name="payment[bank_id]" value="card" title="card">';
+                    $html .= '<img src="' . WCGatewayGetKevinPluginUrl . "/assets/images/credit_card_stock.png" . '" height="48">';
+                    $html .= 'Credit/Debit card';
                     $html .= '</label>';
                     $html .= '</p>';
                     $html .= '</div>';
                     echo $html;
                 }
+                echo '</div>';
             }
-            if (in_array("card", $paymentMethods))
-            {
 
-                $html = '<div class="wc-kevin-bank">';
-                $html .= '<p>';
-                $html .= '<label>';
-                $html .= '<input type="radio" name="payment[bank_id]" value="card" title="card">';
-                $html .= '<img src="' . WCGatewayGetKevinPluginUrl . "/assets/images/credit_card_stock.png" . '" height="48">';
-                $html .= 'Credit/Debit card';
-                $html .= '</label>';
-                $html .= '</p>';
-                $html .= '</div>';
-                echo $html;
+            if ($description) {
+                echo '<div class="wc-kevin-banks-description">';
+                echo apply_filters('wc_kevin_description', wpautop(wp_kses_post($description)), $this->id);
+                echo '</div>';
             }
-            echo '</div>';
-        }
 
-        if ($description)
-        {
-            echo '<div class="wc-kevin-banks-description">';
-            echo apply_filters('wc_kevin_description', wpautop(wp_kses_post($description)), $this->id);
-            echo '</div>';
+            ob_end_flush();
+        } else {
+            echo __('Please select your country.', 'woocommerce-gateway-getkevin');
         }
-
-        ob_end_flush();
 
         wp_register_style('getkevin_styles', plugins_url('assets/css/kevin-styles.css', WC_KEVIN_MAIN_FILE), array(), WC_KEVIN_VERSION);
         wp_enqueue_style('getkevin_styles');
