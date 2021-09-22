@@ -2,24 +2,24 @@
     "packages": [
         {
             "name": "getkevin/kevin-php",
-            "version": "0.14.1",
-            "version_normalized": "0.14.1.0",
+            "version": "0.14.2",
+            "version_normalized": "0.14.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getkevin/kevin-php.git",
-                "reference": "60377d25ea1ccc80ae31859f0ab10b9a4f04f2f9"
+                "reference": "2da751a9f6e55b85c5250d1a474df438616438ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getkevin/kevin-php/zipball/60377d25ea1ccc80ae31859f0ab10b9a4f04f2f9",
-                "reference": "60377d25ea1ccc80ae31859f0ab10b9a4f04f2f9",
+                "url": "https://api.github.com/repos/getkevin/kevin-php/zipball/2da751a9f6e55b85c5250d1a474df438616438ab",
+                "reference": "2da751a9f6e55b85c5250d1a474df438616438ab",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
                 "php": ">=5.6"
             },
-            "time": "2021-04-28T10:21:56+00:00",
+            "time": "2021-07-12T18:14:43+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -41,7 +41,7 @@
             "support": {
                 "email": "help@kevin.eu",
                 "issues": "https://github.com/getkevin/kevin-php/issues",
-                "source": "https://github.com/getkevin/kevin-php/tree/0.14.1"
+                "source": "https://github.com/getkevin/kevin-php/tree/0.14.2"
             },
             "install-path": "../getkevin/kevin-php"
         }

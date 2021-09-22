@@ -14,8 +14,8 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => '1.1.1',
-    'version' => '1.1.1.0',
+    'pretty_version' => '2.2.1',
+    'version' => '2.2.1.0',
     'aliases' => 
     array (
     ),
@@ -26,17 +26,17 @@ private static $installed = array (
   array (
     'getkevin/kevin-php' => 
     array (
-      'pretty_version' => '0.14.1',
-      'version' => '0.14.1.0',
+      'pretty_version' => '0.14.2',
+      'version' => '0.14.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '60377d25ea1ccc80ae31859f0ab10b9a4f04f2f9',
+      'reference' => '2da751a9f6e55b85c5250d1a474df438616438ab',
     ),
     'getkevin/kevin-woocommerce' => 
     array (
-      'pretty_version' => '1.1.1',
-      'version' => '1.1.1.0',
+      'pretty_version' => '2.2.1',
+      'version' => '2.2.1.0',
       'aliases' => 
       array (
       ),
