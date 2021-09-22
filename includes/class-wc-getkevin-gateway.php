@@ -58,7 +58,7 @@ class WC_Gateway_GetKevin extends WC_Payment_Gateway
 
         $this->clientOptions = [
             'version' => '0.3',
-            'pluginVersion' => "2.1.4",
+            'pluginVersion' => "2.1.5",
             'pluginPlatform' => "Wordpress/WooCommerce",
             'pluginPlatformVersion' => $GLOBALS['wp_version'] . "/" . WC_VERSION,
         ];
@@ -69,7 +69,7 @@ class WC_Gateway_GetKevin extends WC_Payment_Gateway
         add_action('woocommerce_api_wc_gateway_' . $this->id, array($this, 'handle_webhook'));
 
 
-        //Processes and saves options.
+
         add_action('woocommerce_update_options_payment_gateways_' . $this->id, array($this, 'process_admin_options'));
 
         add_filter('woocommerce_thankyou_order_received_text', array($this, 'order_received_text'), 10, 2);
@@ -512,10 +512,6 @@ class WC_Gateway_GetKevin extends WC_Payment_Gateway
             elseif($response['group'] == 'completed')
             {
                 return "<div class='woocommerce-message'>" . __('Thank you for your payment. Your transaction has been completed, and a receipt for your purchase has been emailed to you.', 'woocommerce-gateway-getkevin') . "</div>";
-            }
-            elseif($response['group'] == 'started')
-            {
-                return "<div class='woocommerce-message' style='background-color: #ffd144;border-color: #ffc000'>" . __('Payment initiation was cancelled. Please try again.', 'woocommerce-gateway-getkevin') . "</div>";
             }
             else
             {
