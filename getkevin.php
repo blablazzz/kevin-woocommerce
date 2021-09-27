@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Gateway - kevin.
  * Plugin URI: https://www.kevin.eu/
  * Description: kevin. is a payment infrastructure company which offers payment initiation service in EU&EEA.
- * Version: 2.1.5
+ * Version: 2.1.6
  * Requires at least: 5.2
  * Tested up to: 5.5
  * Requires PHP: 5.6
@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit;
 define('WCGatewayGetKevinPluginUrl', plugin_dir_url(__FILE__));
 define('WCGatewayGetKevinPluginPath', basename(dirname( __FILE__ )));
 define( 'WC_KEVIN_MAIN_FILE', __FILE__ );
-define('WC_KEVIN_VERSION', '2.1.5');
+define('WC_KEVIN_VERSION', '2.1.6');
 
 require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 

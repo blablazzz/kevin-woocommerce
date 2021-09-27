@@ -58,7 +58,7 @@ class WC_Gateway_GetKevin extends WC_Payment_Gateway
 
         $this->clientOptions = [
             'version' => '0.3',
-            'pluginVersion' => "2.1.5",
+            'pluginVersion' => "2.1.6",
             'pluginPlatform' => "Wordpress/WooCommerce",
             'pluginPlatformVersion' => $GLOBALS['wp_version'] . "/" . WC_VERSION,
         ];
@@ -310,6 +310,13 @@ class WC_Gateway_GetKevin extends WC_Payment_Gateway
             if ($orders && !empty($orders) && $orders[0])
             {
                 $order = $orders[0];
+
+                //Additional check if user already paid with a different vendor.
+                if($order->get_payment_method() != $this->id)
+                {
+                    status_header(400);
+                    exit();
+                }
 
                 $paymentId = $inputData['id'];
                 $client = new WC_Kevin_Client($this->client_id, $this->client_secret, $this->clientOptions);
