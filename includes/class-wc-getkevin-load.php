@@ -39,7 +39,7 @@ class Wc_GetKevin_Load
         );
 
         if(!class_exists('woocommerce')) {
-            $this->addError('GetKevin plugin needs WooCommerce');
+            $this->addError('Kevin plugin needs WooCommerce');
             return false;
         }
 

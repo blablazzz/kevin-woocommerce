@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d64cbf1e060449b94626c63ef2e34306",
+    "content-hash": "a2e8359ecfde3659e230b32b6d23bbda",
     "packages": [
         {
             "name": "getkevin/kevin-php",
-            "version": "0.14.1",
+            "version": "0.14.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getkevin/kevin-php.git",
-                "reference": "60377d25ea1ccc80ae31859f0ab10b9a4f04f2f9"
+                "reference": "66449e50bf1ee3399748e08a0c514085649ae66b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/getkevin/kevin-php/zipball/60377d25ea1ccc80ae31859f0ab10b9a4f04f2f9",
-                "reference": "60377d25ea1ccc80ae31859f0ab10b9a4f04f2f9",
+                "url": "https://api.github.com/repos/getkevin/kevin-php/zipball/66449e50bf1ee3399748e08a0c514085649ae66b",
+                "reference": "66449e50bf1ee3399748e08a0c514085649ae66b",
                 "shasum": ""
             },
             "require": {
@@ -44,9 +44,9 @@
             "support": {
                 "email": "help@kevin.eu",
                 "issues": "https://github.com/getkevin/kevin-php/issues",
-                "source": "https://github.com/getkevin/kevin-php/tree/0.14.1"
+                "source": "https://github.com/getkevin/kevin-php/tree/0.14.5"
             },
-            "time": "2021-04-28T10:21:56+00:00"
+            "time": "2021-11-16T17:37:28+00:00"
         }
     ],
     "packages-dev": [],
@@ -60,5 +60,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }

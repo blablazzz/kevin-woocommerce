@@ -1,6 +1,18 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [0.14.5] - 2021-11-16
+- Change webhook header names to case insensitive
+
+## [0.14.4] - 2021-10-14
+- Get Project Settings endpoint implementation
+- Implemented signature algorithm
+- Support for UI settings
+
+## [0.14.3] - 2021-09-20
+- Fixes a bug when Client-Id/Client-Secret is not passed when using Bearer token
+- Updated domain from getkevin.eu to kevin.eu
+
 ## [0.14.2] - 2021-06-21
 - Added support for 500, 502, 503 and 504 error codes.
 

@@ -2,9 +2,13 @@
     padding: 0.5rem;
     border-bottom: 1px solid #e2e2e2;
 }
-
-.wc-kevin-bank ~ .wc-kevin-bank {
-    margin-top: 1rem;
+.wc-kevin-banks-list{
+	overflow:auto;
+    overflow-x: hidden;
+	max-height: calc(50px * 8);
+}
+.wc-kevin-banks-list .wc-kevin-bank {
+    margin: 0.5rem 0;
 }
 
 .wc-kevin-bank label {
@@ -36,4 +40,12 @@
 
 .wc_payment_method.payment_method_getkevin label img {
     max-height: 24px;
+}
+.kevin-search-wrapper{
+    display: flex;
+}
+.kevin-search-wrapper #kevin-country-selector, .kevin-search-wrapper #kevin-bank-input{
+    margin: 0px 4px;
+    padding: 4px;
+    width:50%;
 }

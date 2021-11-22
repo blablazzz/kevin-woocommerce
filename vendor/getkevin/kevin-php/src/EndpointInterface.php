@@ -10,7 +10,7 @@ interface EndpointInterface
     /**
      * Base URL used for sending API calls.
      */
-    const BASE_URL = 'https://api.getkevin.eu/platform';
+    const BASE_URL = 'https://api.kevin.eu/platform';
     const BASE_URL_V01 = self::BASE_URL . '/v0.1';
     const BASE_URL_V02 = self::BASE_URL . '/v0.2';
     const BASE_URL_V03 = self::BASE_URL . '/v0.3';
@@ -24,6 +24,7 @@ interface EndpointInterface
     const PATH_PAYMENT_METHODS = '/auth/paymentMethods';
     const PATH_BANK = '/auth/banks/{bankId}';
     const PATH_BANK_BY_CARD_NUMBER_PIECE = '/auth/banks/cards/{cardNumberPiece}';
+    const PATH_PROJECT_SETTINGS = '/auth/project/settings';
     const PATH_AUTH = '/auth';
     const PATH_RECEIVE_TOKEN = '/auth/token';
     const PATH_REFRESH_TOKEN = '/auth/token';
