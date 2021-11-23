@@ -31,7 +31,7 @@ require('vendor/autoload.php');
 
 > Parameter names and response data match those defined in API documentation.
 
-> Detailed API documentation can be found <a href="https://docs.getkevin.eu/public/platform" target="_blank">here</a>.
+> Detailed API documentation can be found <a href="https://docs.kevin.eu/public/platform" target="_blank">here</a>.
 
 ### Initialization
 
@@ -40,7 +40,7 @@ use Kevin\Client;
 
 $clientId = 'my-client-id';
 $clientSecret = 'my-client-secret';
-$options = ['error' => 'array', 'version' => '0.3'];
+$options = ['error' => 'array', 'version' => '0.3', 'lang' => 'en'];
 
 $kevinClient = new Client($clientId, $clientSecret, $options);
 ```
@@ -77,19 +77,25 @@ $bankId = 'SEB_LT_SAND';
 $response = $kevinClient->auth()->getBank($bankId);
 ```
 
-### 1.4 Start authentication
+### 1.4 Get project settings
+
+```
+$response = $kevinClient->auth()->getProjectSettings();
+```
+
+### 1.5 Start authentication
 
 ```
 $attr = [
     'redirectPreferred' => 'false',
     'scopes' => 'payments',
     'Request-Id' => 'your-guid',
-    'Redirect-URL' => 'https://redirect.getkevin.eu/authorization.html'
+    'Redirect-URL' => 'https://redirect.kevin.eu/authorization.html'
 ];
 $response = $kevinClient->auth()->authenticate($attr);
 ```
 
-### 1.5 Receive token
+### 1.6 Receive token
 
 ```
 $attr = ['code' => 'your-auth-code'];
@@ -97,7 +103,7 @@ $attr = ['code' => 'your-auth-code'];
 $response = $kevinClient->auth()->receiveToken($attr);
 ```
 
-### 1.6 Refresh token
+### 1.7 Refresh token
 
 ```
 $attr = ['refreshToken' => 'your-refresh-token'];
@@ -105,7 +111,7 @@ $attr = ['refreshToken' => 'your-refresh-token'];
 $response = $kevinClient->auth()->refreshToken($attr);
 ```
 
-### 1.7 Receive token content
+### 1.8 Receive token content
 
 ```
 $attr = ['Authorization' => 'your-bearer-token'];
@@ -122,7 +128,7 @@ $response = $kevinClient->auth()->receiveTokenContent($attr);
 
 ```
 $attr = [
-    'Redirect-URL' => 'https://redirect.getkevin.eu/payment.html',
+    'Redirect-URL' => 'https://redirect.kevin.eu/payment.html',
     'description' => 'Test',
     'currencyCode' => 'EUR',
     'amount' => '0.01',
@@ -141,7 +147,7 @@ $response = $kevinClient->payment()->initPayment($attr);
 
 ```
 $attr = [
-    'Redirect-URL' => 'https://redirect.getkevin.eu/payment.html',
+    'Redirect-URL' => 'https://redirect.kevin.eu/payment.html',
     'description' => 'Test',
     'currencyCode' => 'EUR',
     'amount' => '0.01',
@@ -160,7 +166,7 @@ $response = $kevinClient->payment()->initPayment($attr);
 
 ```
 $attr = [
-    'Redirect-URL' => 'https://redirect.getkevin.eu/payment.html',
+    'Redirect-URL' => 'https://redirect.kevin.eu/payment.html',
     'description' => 'Test',
     'currencyCode' => 'EUR',
     'amount' => '0.01',
@@ -208,6 +214,27 @@ $paymentId = 'your-payment-id';
 $response = $kevinClient->payment()->getPaymentRefunds($paymentId);
 ```
 
+### 3. Security
+
+### 3.1 Verify signature
+
+:exclamation: _We recommend ignoring the webhook if the signature is older than 5 minutes._
+
+```
+use Kevin\SecurityManager;
+
+$endpointSecret = 'your-endpoint-secret';
+$webhookUrl = 'your-webhook-url';
+
+// Timestamp is provided in milliseconds
+$timestampTimeout = 300000;
+
+$requestBody = file_get_contents("php://input");
+$headers = getallheaders();
+
+$isValid = SecurityManager::verifySignature($endpointSecret, $requestBody, $headers, $webhookUrl, $timestampTimeout);
+```
+
 ## Support
 
 Email: help@kevin.eu
@@ -215,4 +242,4 @@ Email: help@kevin.eu
 ## License
 
 - **[MIT license](http://opensource.org/licenses/mit-license.php)**
-- Copyright© 2020 <a href="https://www.getkevin.eu/" target="_blank">kevin.</a>
+- Copyright© 2020 <a href="https://www.kevin.eu/" target="_blank">kevin.</a>

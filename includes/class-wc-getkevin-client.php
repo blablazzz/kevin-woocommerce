@@ -6,6 +6,9 @@ class WC_Kevin_Client {
 
 
     private $client;
+    private $webhookUrl;
+    private $endpointSecret;
+
     /**
      * WC_Kevin_Client constructor.
      * @param $client_id
@@ -13,18 +16,25 @@ class WC_Kevin_Client {
      * @param string[] $options
      * @throws \Kevin\KevinException
      */
-    public function __construct($client_id, $client_secret, $options = ['version' => '0.3'])
+    public function __construct($client_id, $client_secret, $options = ['version' => '0.3'], $webhookUrl, $endpointSecret)
     {
         $this->client = new \Kevin\Client($client_id, $client_secret, $options);
+        $this->webhookUrl = $webhookUrl;
+        $this->endpointSecret = $endpointSecret;
     }
 
     /**
      * @param $countryCode
      * @return array|mixed
      */
-    public function getBanks($countryCode) {
+    public function getBanks($countryCode = null) {
         try {
-            $banks = $this->client->auth()->getBanks(['countryCode' => $countryCode]);
+            $options = [];
+            if($countryCode)
+            {
+                $options = ['countryCode' => $countryCode];
+            }
+            $banks = $this->client->auth()->getBanks($options);
         } catch (\Kevin\KevinException $exception) {
 
             return [];
@@ -34,6 +44,7 @@ class WC_Kevin_Client {
     }
 
     /**
+     * @deprecated
      * @return array|mixed
      */
     public function getPaymentMethods() {
@@ -44,6 +55,19 @@ class WC_Kevin_Client {
         }
 
         return $banks['data'];
+    }
+
+    /**
+     * @return array|mixed
+     */
+    public function getProjectSettings() {
+        try {
+            $projectSettings = $this->client->auth()->getProjectSettings();
+        } catch (\Kevin\KevinException $exception) {
+            return [];
+        }
+
+        return $projectSettings;
     }
 
 
@@ -74,5 +98,17 @@ class WC_Kevin_Client {
      */
     public function initiatePaymentRefund($paymentId, $attr) {
         return $this->client->payment()->initiatePaymentRefund($paymentId, $attr);
+    }
+
+    /**
+     * @param $endpointSecret
+     * @param $requestBody
+     * @param $headers
+     * @param $webhookUrl
+     * @return bool
+     */
+    public function verifySignature($requestBody, $headers)
+    {
+        return \Kevin\SecurityManager::verifySignature($this->endpointSecret, $requestBody, $headers, $this->webhookUrl, 300000);
     }
 }

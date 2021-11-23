@@ -199,7 +199,7 @@ msgstr "Kliento ID"
 #: class-wc-getkevin-settings.php:50
 msgid "Your client id. Your can get it in kevin. platform console."
 msgstr ""
-"Jūsų kliento ID. Jį galite rasti savo .kevin platformos valdymo pulte."
+"Jūsų kliento ID. Jį galite rasti savo kevin. platformos valdymo pulte."
 
 #: class-wc-getkevin-settings.php:56
 msgid "Client Secret"
@@ -208,7 +208,7 @@ msgstr "Kliento paslaptis"
 #: class-wc-getkevin-settings.php:59
 msgid "Your client secret. Your can get it in kevin. platform console."
 msgstr ""
-"Jūsų kliento paslaptis. Ją galite rasti savo .kevin platformos valdymo "
+"Jūsų kliento paslaptis. Ją galite rasti savo kevinplatformos valdymo "
 "pulte."
 
 #: class-wc-getkevin-settings.php:65
@@ -241,7 +241,7 @@ msgstr "Apmokėto užsakymo būsena"
 
 #: class-wc-getkevin-settings.php:100
 msgid "Status of an order that has been successfully paid."
-msgstr "Būsena užsakymo kuris buvo apmokėtas per .kevin sistemą."
+msgstr "Būsena užsakymo kuris buvo apmokėtas per kevinsistemą."
 
 #: class-wc-getkevin-settings.php:104
 msgid "Pending checkout"

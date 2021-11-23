@@ -1,6 +1,6 @@
 /***********
  * getKevin payment gateway
- * Javascript actions
+ * Backend js script fragments
  ***********/
 jQuery(document).ready(function($) {
     $('.tabContent').hide('fast');

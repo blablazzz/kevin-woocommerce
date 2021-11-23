@@ -30,7 +30,7 @@ class Wc_GetKevin_Settings extends WC_Payment_Gateway
                 'type'        => 'text',
                 'css'               => 'width: 420px;',
                 'description' => __( 'This controls the title which the user sees during checkout.', 'woocommerce-gateway-getkevin' ),
-                'default'     => __( 'kevin.', 'woocommerce-gateway-getkevin' ),
+                'default'     => __( 'Bank payment', 'woocommerce-gateway-getkevin' ),
                 'desc_tip'    => true,
                 'custom_attributes' => ['required' => 'required']
 
@@ -54,9 +54,18 @@ class Wc_GetKevin_Settings extends WC_Payment_Gateway
             ],
             'client_secret'      => [
                 'title'       => __( 'Client Secret', 'woocommerce-gateway-getkevin' ),
-                'type'        => 'text',
+                'type'        => 'password',
                 'css'               => 'width: 420px;',
                 'description' => __( 'Your client secret. Your can get it in kevin. platform console.', 'woocommerce-gateway-getkevin' ),
+                'desc_tip'    => true,
+                'default'     => '',
+                'custom_attributes' => ['required' => 'required']
+            ],
+            'endpoint_secret'      => [
+                'title'       => __( 'EndpointSecret', 'woocommerce-gateway-getkevin' ),
+                'type'        => 'password',
+                'css'               => 'width: 420px;',
+                'description' => __( 'Your secret signature. Your can get it in kevin. platform console.', 'woocommerce-gateway-getkevin' ),
                 'desc_tip'    => true,
                 'default'     => '',
                 'custom_attributes' => ['required' => 'required']
